@@ -4,7 +4,7 @@ LinkGe is a perl program designed to quickly generate linkage polymorphism frequ
 LinkGe is a perl script designed to take in an Illumina alignment in BAM format and output linkage polymorphism (LP) frequencies. LPs are determined by user-defined nucleotide positions from the command line or in the PARAM file. At each of those positions LinkGe collects the nucleotide base call for each read and then collects that data
 
 Options:
-
+```
 -v    --version     print current version of LinkGe
 -r    --range       allow an input range
 -o    --out         define the prefix for the output file
@@ -15,50 +15,51 @@ Options:
 -f    --file        define positions from a csv or tsv file
 -l    --list        define positions from a command line list
 -A    --Analysis    amino acid analysis
-
+```
 Usage:
-
+```
 $ LinkGe.pl [OPTIONS] [PARAM file] [alignment.bam]
-
+```
 Dependencies:
+```
 Bio::DB::Sam
 BioPerl
 Samtools version 0.1.15
-
+```
 Aquire Bio::DB::Sam from CPAN and install all associated dependencies.
 
 Example of using a range to define positions
-
+```
 $ perl LinkGe.pl -r 2189-2275 alignment.bam
-
+```
 Example of using a list to define positions
-
+```
 $ perl LinkGe.pl  -l 1190,1201,1205,1224,1232 alignment.bam
-
+```
 Examples of accepted PARAM file format:
-
+```
 $ perl LinkGe.pl  -f /path/to/your/file.txt alignment.bam
-
+```
 Comma separated:
-
+```
 position_1,8
 position_2,25
 position_3,352
 position_4,700
 ...
 position_n,N
-
+```
 OR
 
 Tab separated:
-
+```
 position_1  8
 position_2  25
 position_3  352
 position_4  700
 ...
 position_n  N
-
+```
 Both formats must have Unix end-line characters (LF).
 
 Documentation
