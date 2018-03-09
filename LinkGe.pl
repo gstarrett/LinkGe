@@ -8,11 +8,10 @@ use Getopt::Long;
 use threads;
 
 # Define options
-my ($versionOpt, $range, $out, $help, $batch, $threaded, $fasta, $posList, $paramPath, $analysis, $chrom);
+my ($versionOpt, $range, $out, $help, $batch, $threaded, $fasta, $posList, $paramPath, $analysis);
 GetOptions(
 			'version' => \$versionOpt,	# print program version
 			'range=s' => \$range,		# use a range of positions instead of list
-			'chrom=s' => \$chrom,		# chromosome or contig of interest
 			'out=s' => \$out,			# user-defined outfile  prefix
 			'help' => \$help,			# print usage
 			'batch' => \$batch,			# process all of the bam files in a folder
@@ -20,21 +19,20 @@ GetOptions(
 			'FASTA' => \$fasta,			# export fasta files containing reads for each linkage polymorphism
 			'list=s' => \$posList,
 			'file=s' => \$paramPath,
-			'Analysis=s' => \$analysis,
+			'Analysis=s' => \$analysis
 );
 
 # Define version, author, contact, etc information
-my $version = "0.3";
-my $lastUpdate = "September 16, 2014";
+my $version = "0.2.2";
+my $lastUpdate = "March 9, 2018";
 my $author = "Gabriel Starrett";
-my $email = "gjstarrett\@gmail.edu";
-my $institution = "Originally developed at the University of Wisconsin";
+my $email = "gstarrett\@wisc.edu";
+my $institution = "University of Wisconsin";
 my $options = <<END;
 Options:
 
--v	--version	list current version of PEGen
+-v	--version	list current version of LinkGe
 -r	--range		allow an input range (e.g. 1-100)
--c	--chrom		define the chromosome or contig to analyze
 -o	--out		define the prefix for the output file
 -b	--batch		process all of the files in a given folder
 -h	--help		show this screen
@@ -139,11 +137,9 @@ if(defined $paramPath){
 }
 
 # import bam file
-my $sam = Bio::DB::Sam->new(-bam=>"$_[0]",-fasta=> "$_[1]",-autoindex => 1) or die "Couldn't open BAM file: $!";
+my $sam = Bio::DB::Sam->new(-bam=>"$_[0]",-autoindex => 1) or die "Couldn't open BAM file: $!";
 my @seq_ids=$sam->seq_ids;
-if (defined $chrom) {
-	@seq_ids=$chrom;
-}
+
 # process reference file
 # print $seq_ids[0],"\n";
 # print $positions[0],"\n";
@@ -195,7 +191,7 @@ my $all_linkages = sub {{
             		$readHash{$all_trim} = "$base_call";
             	}
 }};
-$sam->pileup("$seq_ids[0]:$start-$end",$all_linkages);
+$sam->fetch("@seq_ids:$start-$end",$all_linkages);
 
 print scalar (keys %readHash), " reads\n" unless ($threaded >= 1);
 push @posHashes, \%readHash;
@@ -259,7 +255,7 @@ if (defined $analysis){
 	print OUT "### Frameshift: $frame\n"
 }
 my @refaa;
-print OUT "id\t";
+print OUT "id\t" if ($fasta == 1);
 print OUT "sequence" unless (defined $analysis);
 if (defined $analysis){
 	@refaa = &translatorMain($refseq,$frame);
