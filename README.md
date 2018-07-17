@@ -1,4 +1,7 @@
 # LinkGe
+
+[![DOI](https://zenodo.org/badge/123921192.svg)](https://zenodo.org/badge/latestdoi/123921192)
+
 LinkGe is a perl program designed to quickly generate linkage polymorphism frequency reports from a sequence alignment given in bam format. It works in both nucleotide and amino acid space. Additionally it works with paired and non-paired data, treating paired reads as one read when searching for linkages. No theoretical limit on the amount of the positions to be queried. It takes under 1 second to process a position with over 3000 reads of coverage.
 
 LinkGe is a perl script designed to take in an Illumina alignment in BAM format and output linkage polymorphism (LP) frequencies. LPs are determined by user-defined nucleotide positions from the command line or in the PARAM file. At each of those positions LinkGe collects the nucleotide base call for each read and then collects that data
@@ -61,6 +64,9 @@ position_4  700
 position_n  N
 ```
 Both formats must have Unix end-line characters (LF).
+
+LinkGe was first published in:
+P.R. Wilker, J.M. Dinis, G. Starrett, M. Imai, M. Hatta, C.W. Nelson, D.H. O’Connor, et al. “Selection on Haemagglutinin Imposes a Bottleneck during Mammalian Transmission of Reassortant H5N1 Influenza Viruses.” Nature Communications 4 (2013). https://doi.org/10.1038/ncomms3636. 
 
 Documentation
 0.1.0
