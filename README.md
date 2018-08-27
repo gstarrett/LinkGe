@@ -69,6 +69,7 @@ LinkGe was first published in:
 P.R. Wilker, J.M. Dinis, G. Starrett, M. Imai, M. Hatta, C.W. Nelson, D.H. O’Connor, et al. “Selection on Haemagglutinin Imposes a Bottleneck during Mammalian Transmission of Reassortant H5N1 Influenza Viruses.” Nature Communications 4 (2013). https://doi.org/10.1038/ncomms3636. 
 
 Documentation
+```
 0.1.0
 -First "working" version
 
@@ -108,3 +109,7 @@ Documentation
 0.2.1
 -changed the position input options. No longer is the user constrained to use the external param file to define position information
 -Addition of the Analysis option (explained elsewhere)
+
+0.2.2
+-small bug fixes and moved onto github
+```
